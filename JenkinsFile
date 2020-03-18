@@ -1,0 +1,17 @@
+pipeline {
+    agent {
+        docker { image 'node:10-alpine' }
+    }
+    stages {
+        stage('Install Packages') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build --prod'
+            }
+        }            
+    }
+}
