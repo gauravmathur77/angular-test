@@ -15,6 +15,11 @@ pipeline {
             steps {
                 sh 'cp ./dist/project/* ../../../../www/html/'
             }
+        }     
+        stage('Dockerize') {
+            steps {
+                sh 'docker build -t project:v1 .'
+            }
         }          
     }
 }
