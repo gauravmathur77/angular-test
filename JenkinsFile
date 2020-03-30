@@ -1,25 +1,4 @@
 pipeline {
     agent any
-    stages {
-        stage('Install Packages') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'npm run build --prod'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'cp ./dist/project/* ../../../../www/html/'
-            }
-        }     
-        stage('Dockerize') {
-            steps {
-                sh 'docker build -t project:v1 .'
-            }
-        }          
-    }
+
 }
