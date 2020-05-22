@@ -1,9 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Example') {
+        stage('Docker Build') {
             steps {
-                echo 'Hello World'
+                 sh 'docker build -t angular-test .'
+            }
+        }
+         stage('Docker Run') {
+            steps {
+                 sh 'docker run --name angular-test -d -p 8080:80 angular-test'
             }
         }
     }
