@@ -7,6 +7,7 @@ WORKDIR /app
 # install and cache app dependencies
 COPY . .
 RUN npm install
+RUN npm install -g @angular/cli
 RUN npm run build --prod
 
 FROM nginx:alpine
