@@ -1,17 +1,16 @@
 ## STAGE 1 ##
 FROM node:10.19.0-alpine as builder
 
-WORKDIR /project
+WORKDIR /usr/src/app
 
-COPY . .
-
+COPY package.json ./
 RUN npm install
-
-RUN npm build --prod
+COPY . .
+RUN npm run build --prod
 
 ## STAGE 2 ##
 FROM nginx
 
-COPY --from=builder /project/dist/project /usr/share/nginx/html/
+COPY --from=build /usr/src/app/dist/project /usr/share/nginx/html
 
 EXPOSE 80
