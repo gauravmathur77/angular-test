@@ -1,14 +1,13 @@
 
- environment {
-    APP_NAME = 'angular-test-code'
-    JENKINSFILE_LOCATION = 'JenkinsFile'
-    DOCKER_REGISTRY = 'gauravmathur1/angular-test-docker'
-    VERSION="$branchName-$BUILD_NUMBER"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-}
-
 pipeline {
+    environment {
+        APP_NAME = 'angular-test-code'
+        JENKINSFILE_LOCATION = 'JenkinsFile'
+        DOCKER_REGISTRY = 'gauravmathur1/angular-test-docker'
+        VERSION="$branchName-$BUILD_NUMBER"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
     agent any
     stages {
         stage('Docker Build') {
