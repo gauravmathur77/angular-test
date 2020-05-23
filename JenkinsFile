@@ -1,4 +1,6 @@
 
+String branchName = "$BRANCH_NAME".toLowerCase()
+
 pipeline {
     environment {
         APP_NAME = 'angular-test-code'
