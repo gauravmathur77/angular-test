@@ -9,10 +9,12 @@ pipeline {
         dockerImage = ''
     }
     agent any
-    stages {
+    stages {    
         stage('Docker Build') {
             steps {
-                 dockerImage = docker.build DOCKER_REGISTRY + VERSION
+                script {
+                     dockerImage = docker.build "${DOCKER_REGISTRY}" + "${VERSION}"
+                }
             }
         }
         stage('Docker Run') {
@@ -22,10 +24,12 @@ pipeline {
         }
         stage('Image push to Artifactory') {
             steps {
-                docker.withRegistry( '', registryCredential ) {
-                    dockerImage.push()
+                script {
+                         docker.withRegistry( '', registryCredential ) {
+                            dockerImage.push()
+                        }
+                     }
                 }
-            }
-        }
+         }
     }
 }
