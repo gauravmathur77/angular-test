@@ -7,5 +7,5 @@ WORKDIR /app
 # install and cache app dependencies
 COPY . .
 
-FROM nginx:alpine
-COPY --from=node /app/dist/project /usr/share/ngnix/html 
+FROM nginx:1.17.1-alpine
+COPY --from=build /usr/src/app/dist/aston-villa-app /usr/share/nginx/html
