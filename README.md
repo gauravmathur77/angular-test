@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev serve. Navigate to `http://localhost:4200/`. The app will automaticallys reload if you change any of the source file.
 
-## Code scaffolding
+## Code scaffoldingx
 
 Run `ng generate component component-name` to generated a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
