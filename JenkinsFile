@@ -1,14 +1,31 @@
+
+ environment {
+    APP_NAME = 'angular-test-code'
+    JENKINSFILE_LOCATION = 'JenkinsFile'
+    DOCKER_REGISTRY = 'gauravmathur1/angular-test-docker'
+    VERSION="$branchName-$BUILD_NUMBER"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+}
+
 pipeline {
     agent any
     stages {
         stage('Docker Build') {
             steps {
-                 sh 'docker build -t angular-test .'
+                 dockerImage = docker.build DOCKER_REGISTRY + VERSION
             }
         }
-         stage('Docker Run') {
+        stage('Docker Run') {
             steps {
                sh 'docker run -d -p 8081:80 angular-test'
+            }
+        }
+        stage('Image push to Artifactory') {
+            steps {
+                docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                }
             }
         }
     }
