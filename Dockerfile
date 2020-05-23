@@ -8,4 +8,4 @@ WORKDIR /app
 COPY . .
 
 FROM nginx:1.17.1-alpine
-COPY --from=node /app/dist/project /usr/share/ngnix/html 
+COPY --from=node /app/dist/project /usr/share/ngnix/html/ 
