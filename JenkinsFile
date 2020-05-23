@@ -1,14 +1,20 @@
 pipeline {
     agent any
     stages {
+        stage('NPM build and Install') {
+            steps {
+                 sh 'npm install'
+                 sh 'npm run build'
+            }
+        }
         stage('Docker Build') {
             steps {
-                 echo 'Hello'
+                 sh 'docker build -t angular-test .'
             }
         }
          stage('Docker Run') {
             steps {
-                echo 'Hello'
+               docker run --name angular-test -d -p 8080:80 angular-test
             }
         }
     }
