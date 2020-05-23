@@ -11,4 +11,4 @@ RUN npm install -g @angular/cli
 RUN npm run build 
 
 FROM nginx:alpine
-COPY --from=node /app/dist/project /usr/share/ngnix/html
+COPY --from=node /app/dist/project /usr/share/ngnix/html 
