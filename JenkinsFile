@@ -14,7 +14,7 @@ pipeline {
         }
          stage('Docker Run') {
             steps {
-               docker run --name angular-test -d -p 8080:80 angular-test
+               sh 'docker run --name angular-test -d -p 8080:80 angular-test'
             }
         }
     }
