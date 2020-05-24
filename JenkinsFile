@@ -19,7 +19,9 @@ pipeline {
         }
         stage('Docker Run') {
             steps {
-               dockerImage.run("-p 8081:80")
+                script {
+                    dockerImage.run("-p 8081:80")
+                }
             }
         }
         stage('Image push to Artifactory') {
