@@ -4,7 +4,7 @@ pipeline {
         APP_NAME = 'angular-test-code'
         JENKINSFILE_LOCATION = 'JenkinsFile'
         DOCKER_REGISTRY = 'gauravmathur1/angular-test-docker'
-        VERSION="$BRANCH_NAME-$BUILD_NUMBER"
+        VERSION="$BUILD_NUMBER"
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
@@ -13,13 +13,13 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                     dockerImage = docker.build "${DOCKER_REGISTRY}" + "${VERSION}"
+                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${VERSION}"
                 }
             }
         }
         stage('Docker Run') {
             steps {
-               sh 'docker run -d -p 8081:80 angular-test'
+               sh "docker run -d -p 8081:80 ""${DOCKER_REGISTRY}" + ":${VERSION}"""
             }
         }
         stage('Image push to Artifactory') {
