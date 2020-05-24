@@ -13,7 +13,7 @@ pipeline {
             steps {
                 sh 'printenv'
                 script {
-                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${VERSION}"
+                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${GIT_BRANCH}-${VERSION}"
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
          }
          stage('Remove Unused Docker image') {
             steps{
-                sh "docker rmi $DOCKER_REGISTRY:$BUILD_NUMBER"
+                sh "docker rmi $DOCKER_REGISTRY:$GIT_BRANCH-$BUILD_NUMBER"
             }
         }
     }
