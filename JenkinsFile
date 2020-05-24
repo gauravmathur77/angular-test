@@ -14,7 +14,7 @@ pipeline {
         stage('Docker Build') { 
             steps {
                 script {
-                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${$BRANCH_NAME}-${VERSION}"
+                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${env.$BRANCH_NAME}-${VERSION}"
                 }
             }
         }
@@ -37,7 +37,7 @@ pipeline {
          }
          stage('Remove Unused Docker image') {
             steps{
-                sh "docker rmi $DOCKER_REGISTRY:${$BRANCH_NAME}-$BUILD_NUMBER"
+                sh "docker rmi $DOCKER_REGISTRY:${env.$BRANCH_NAME}-$BUILD_NUMBER"
             }
         }
     }
