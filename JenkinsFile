@@ -12,11 +12,10 @@ pipeline {
     agent any
     stages {    
         stage('Docker Build') {
-            echo  $GIT_BRANCH
-            def branch = $GIT_BRANCH.split("/") 
             steps {
                 script {
-                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${branch[1]}-${VERSION}"
+                     sh 'echo printenv'
+                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${VERSION}"
                 }
             }
         }
@@ -39,7 +38,7 @@ pipeline {
          }
          stage('Remove Unused Docker image') {
             steps{
-                sh "docker rmi $DOCKER_REGISTRY:${branch[1]}-$BUILD_NUMBER"
+                sh "docker rmi $DOCKER_REGISTRY:$BUILD_NUMBER"
             }
         }
     }
