@@ -11,10 +11,11 @@ pipeline {
     }
     agent any
     stages {    
-        stage('Docker Build') { 
+        stage('Docker Build') {
+            echo  $GIT_BRANCH
+            def branch = $GIT_BRANCH.split("/") 
             steps {
                 script {
-                     def branch = $GIT_BRANCH.split("/") 
                      dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${branch[1]}-${VERSION}"
                 }
             }
