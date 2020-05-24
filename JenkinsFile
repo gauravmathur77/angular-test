@@ -1,4 +1,4 @@
-
+String branchName = "$BRANCH_NAME".toLowerCase()
 pipeline {
     environment {
         APP_NAME = 'angular-test-code'
@@ -12,6 +12,7 @@ pipeline {
     stages {    
         stage('Docker Build') {
             steps {
+                echo $branchName
                 script {
                      dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${VERSION}"
                 }
