@@ -11,7 +11,7 @@ pipeline {
     stages {    
         stage('Docker Build') {
             steps {
-                echo 'Pulling...' + ${GIT_BRANCH}
+                sh 'printenv'
                 script {
                      dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${VERSION}"
                 }
