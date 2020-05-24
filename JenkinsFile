@@ -13,8 +13,9 @@ pipeline {
     stages {    
         stage('Docker Build') {
             steps {
+                def branch = $GIT_BRANCH.split("/")  
                 script {
-                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${NODE_LABELS}-${VERSION}"
+                     dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${branch[1]}-${VERSION}"
                 }
             }
         }
@@ -37,7 +38,7 @@ pipeline {
          }
          stage('Remove Unused Docker image') {
             steps{
-                sh "docker rmi $DOCKER_REGISTRY:${NODE_LABELS}-$BUILD_NUMBER"
+                sh "docker rmi $DOCKER_REGISTRY:${branch[1]}-$BUILD_NUMBER"
             }
         }
     }
