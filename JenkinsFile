@@ -19,6 +19,7 @@ pipeline {
         }
         stage('Docker Run') {
             steps {
+                sh "docker stop $(docker ps -a -q)"
                 script {
                     dockerImage.run("-p 8081:80")
                 }
@@ -33,5 +34,10 @@ pipeline {
                      }
                 }
          }
+         stage('Remove Unused Docker image') {
+            steps{
+                sh "docker rmi $DOCKER_REGISTRY:$BUILD_NUMBER"
+            }
+        }
     }
 }
