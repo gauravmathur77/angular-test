@@ -1,5 +1,6 @@
 
 
+def branch = $GIT_BRANCH.split("/") 
 pipeline {
     environment {
         APP_NAME = 'angular-test-code'
@@ -11,8 +12,7 @@ pipeline {
     }
     agent any
     stages {    
-        stage('Docker Build') {
-            def branch = $GIT_BRANCH.split("/")  
+        stage('Docker Build') { 
             steps {
                 script {
                      dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${branch[1]}-${VERSION}"
