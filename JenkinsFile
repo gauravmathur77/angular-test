@@ -1,3 +1,5 @@
+
+String branch = ${GIT_BRANCH}.split('/')
 pipeline {
     environment {
         APP_NAME = 'angular-test-code'
@@ -11,7 +13,6 @@ pipeline {
     stages {    
         stage('Docker Build') {
             steps {
-                String branch = ${GIT_BRANCH}.split('/')
                 script {
                      dockerImage = docker.build "${DOCKER_REGISTRY}" + ":${branch[1]}-${VERSION}"
                 }
