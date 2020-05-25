@@ -15,16 +15,22 @@ pipeline {
             steps {
            
                 script {
-                    def userInput = false
-                    userInput = input(id: 'Proceed1', message: 'Promote build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
-                    echo 'userInput: ' + userInput
-                    emailext (
-                    subject: "Waiting for your Approval! Job: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                    body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                                <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-                    to: "gauravmathur77@gmail.com",
-                    recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-                    )
+                       emailext mimeType: 'text/html',
+                       subject: "[Jenkins]${currentBuild.fullDisplayName}",
+                       to: "gauravmathur77@gmail.com",
+                       body: '''<a href="${BUILD_URL}input">click to approve</a>'''
+
+                        def userInput = input id: 'userInput',
+                                              message: 'Let\'s promote?', 
+                                              submitterParameter: 'submitter',
+                                              submitter: 'Gaurav',
+                                              parameters: [
+                                                [$class: 'TextParameterDefinition', defaultValue: 'sit', description: 'Environment', name: 'env'],
+                                                [$class: 'TextParameterDefinition', defaultValue: 'k8s', description: 'Target', name: 'target']]
+
+                        echo ("Env: "+userInput['env'])
+                        echo ("Target: "+userInput['target'])
+                        echo ("submitted by: "+userInput['submitter'])
                     if(userInput == true) {
                         // do action
                     } else {
