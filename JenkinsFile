@@ -15,7 +15,6 @@ pipeline {
             steps {
            
                 script {
-                timeout(time: 15, unit: "SECONDS") {
                        emailext mimeType: 'text/html',
                        subject: "[Jenkins]${currentBuild.fullDisplayName}",
                        to: "gauravmathur94@gmail.com",
@@ -38,7 +37,7 @@ pipeline {
                         // not do action
                         echo "Action was aborted."
                     }
-                }
+                
                 }    
             }  
         }
