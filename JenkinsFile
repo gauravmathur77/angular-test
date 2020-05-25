@@ -17,7 +17,7 @@ pipeline {
                 script {
                        emailext mimeType: 'text/html',
                        subject: "[Jenkins]${currentBuild.fullDisplayName}",
-                       to: "gauravmathur77@gmail.com",
+                       to: "gauravmathur94@gmail.com",
                        body: '''<a href="${BUILD_URL}input">click to approve</a>'''
 
                         def userInput = input id: 'userInput',
