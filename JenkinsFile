@@ -1,5 +1,3 @@
--Dhudson.tasks.MailSender.SEND_TO_UNKNOWN_USERS=true
--Dhudson.tasks.MailSender.SEND_TO_USERS_WITHOUT_READ=true
 pipeline {
     environment {
         APP_NAME = 'angular-test-code'
