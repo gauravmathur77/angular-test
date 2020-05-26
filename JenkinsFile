@@ -74,10 +74,7 @@ pipeline {
     post {
     always {
             echo 'This will always run'
-            emailext body: 'A Test EMail',
-            to: "gauravmathur94@gmail.com",
-            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-            subject: 'Test'
+            mail bcc: '', body: 'A Test EMail', cc: '', from: '', replyTo: '', subject: 'A Test EMail', to: 'gauravmathur94@gmail.com'
     }
     success {
       echo 'This will run only if successful'
