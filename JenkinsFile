@@ -75,10 +75,11 @@ pipeline {
     }
     post {
     always {
-      echo 'This will always run'
-      emailext body: "Build URL: ${BUILD_URL}",
-              subject: "$currentBuild.currentResult-$JOB_NAME",
-              to: "gauravmathur94@gmail.com"
+            echo 'This will always run'
+            emailext body: 'A Test EMail',
+            to: "gauravmathur94@gmail.com",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+            subject: 'Test'
     }
     success {
       echo 'This will run only if successful'
