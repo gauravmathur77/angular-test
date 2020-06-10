@@ -64,7 +64,22 @@ pipeline {
                      }
                 }
          }
-
+        stage('Deploy to k8s') {
+            steps {
+                      sh 'chmod +x changeTag.sh'
+                      sh './changeTag.sh ${VERSION}'
+                      sshAgent(['kubernetes-master']) {
+                        sh 'scp -o StrictHostKeyChecking=no service.yaml deployment.yaml ec2-user@3.137.41.219:/home/ec2-user/'
+                        script {
+                            try {
+                                sh "ssh ec2-user@3.137.41.219 kubectl apply -f . "
+                            } catch(error) {
+                                sh "ssh ec2-user@3.137.41.219 kubectl create -f . "
+                            }
+                        }
+                      }
+                }
+         }
 
     }
     post {
