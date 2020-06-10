@@ -68,7 +68,7 @@ pipeline {
             steps {
                       sh 'chmod +x changeTag.sh'
                       sh './changeTag.sh ${VERSION}'
-                      sshAgent(['kubernetes-master']) {
+                      sshagent(['kubernetes-master']) {
                         sh 'scp -o StrictHostKeyChecking=no service.yaml deployment.yaml ec2-user@3.137.41.219:/home/ec2-user/'
                         script {
                             try {
