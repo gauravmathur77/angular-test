@@ -66,7 +66,10 @@ pipeline {
          }
         stage('Deploy to k8s') {
             steps {
-                      echo 'hello'
+                       withKubeConfig([credentialsId: 'kubeconfig']) {
+                        sh 'cat deployment.yaml | sed "s/{{BUILD_NUMBER}}/$VERSION/g" | kubectl apply -f -'
+                        sh 'kubectl apply -f service.yaml'
+                        }
                 }
          }
 
